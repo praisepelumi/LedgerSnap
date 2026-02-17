@@ -82,8 +82,8 @@ function initializeDatabase() {
 // ── Start server ──────────────────────────────────────────────────────────────
 initializeDatabase();
 
-app.listen(env.PORT, () => {
-  logger.info(`Server running on http://localhost:${env.PORT}`);
+app.listen(env.PORT, "0.0.0.0", () => {
+  logger.info(`Server running on port ${env.PORT}`);
   logger.info(`Environment: ${env.NODE_ENV}`);
 });
 

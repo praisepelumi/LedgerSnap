@@ -16,6 +16,7 @@ const EnvSchema = z.object({
   NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
   DATABASE_PATH: z.string().default("./data/receipts.db"),
   UPLOAD_DIR: z.string().default("./uploads"),
+  CLIENT_URL: z.string().optional(),
 });
 
 const parsed = EnvSchema.safeParse(process.env);
