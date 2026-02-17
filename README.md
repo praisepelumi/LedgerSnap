@@ -2,8 +2,10 @@
 
 AI-powered receipt scanner that extracts structured data from receipt photos using Claude's vision API. Snap a photo, get instant expense tracking.
 
+**[Live Demo](https://ledgersnap-production-9a99.up.railway.app)**
+
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue)
-![React](https://img.shields.io/badge/React-19-61DAFB)
+![React](https://img.shields.io/badge/React-18-61DAFB)
 ![Node.js](https://img.shields.io/badge/Node.js-22-339933)
 ![Claude AI](https://img.shields.io/badge/Claude_AI-Haiku_4.5-orange)
 
@@ -22,7 +24,7 @@ AI-powered receipt scanner that extracts structured data from receipt photos usi
 
 | Layer | Technology |
 |-------|-----------|
-| **Frontend** | React 19, TypeScript, Tailwind CSS, TanStack Query, React Router, Headless UI |
+| **Frontend** | React 18, TypeScript, Tailwind CSS, TanStack Query, React Router, Headless UI |
 | **Backend** | Node.js, Express, TypeScript |
 | **Database** | SQLite (better-sqlite3) with Drizzle ORM |
 | **AI** | Anthropic Claude Haiku 4.5 Vision API |
@@ -69,8 +71,8 @@ ledgersnap/
 ### 1. Clone and Install
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/ledgersnap.git
-cd ledgersnap
+git clone https://github.com/praisepelumi/LedgerSnap.git
+cd LedgerSnap
 npm install
 ```
 
@@ -135,6 +137,15 @@ Visit **https://localhost:5173** and sign in with Google.
 | `GET` | `/api/export/csv` | Export receipts as CSV |
 
 All endpoints except `/api/auth/google` and `/api/health` require a Bearer JWT token.
+
+## Deployment
+
+Deployed on [Railway](https://railway.com) as a single service. The Express server serves both the API and the built React frontend in production.
+
+Environment variables needed on Railway:
+- `ANTHROPIC_API_KEY`, `GOOGLE_CLIENT_ID`, `JWT_SECRET`, `NODE_ENV=production`, `PORT=3001`
+- `DATABASE_PATH=/data/receipts.db`, `UPLOAD_DIR=/data/uploads`
+- Attach a **Volume** mounted at `/data` for persistent storage
 
 ## How It Works
 
