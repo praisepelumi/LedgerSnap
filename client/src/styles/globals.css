@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    min-height: 100dvh;
+    background-image:
+      radial-gradient(ellipse at 20% 50%, rgba(240, 199, 94, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, rgba(193, 69, 51, 0.04) 0%, transparent 50%);
+  }
+
+  /* Subtle paper texture overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.3;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    z-index: 9999;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(122, 110, 80, 0.2);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(122, 110, 80, 0.4);
+  }
+}
+
+@layer components {
+  .receipt-card {
+    @apply bg-receipt-paper border border-receipt-line rounded-lg shadow-receipt
+      transition-all duration-200 hover:shadow-receipt-hover hover:-translate-y-0.5;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2.5
+      bg-ink-700 text-receipt-cream font-medium rounded-lg
+      transition-all duration-150
+      hover:bg-ink-800 active:scale-[0.98]
+      disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2.5
+      bg-receipt-paper text-ink-700 font-medium rounded-lg
+      border border-receipt-line
+      transition-all duration-150
+      hover:bg-ink-50 active:scale-[0.98]
+      disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2.5
+      bg-receipt-danger text-white font-medium rounded-lg
+      transition-all duration-150
+      hover:bg-red-700 active:scale-[0.98]
+      disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .input-field {
+    @apply w-full px-3 py-2.5 bg-receipt-paper border border-receipt-line
+      rounded-lg text-ink-800 placeholder-ink-300
+      transition-colors duration-150
+      focus:outline-none focus:ring-2 focus:ring-receipt-highlight/50 focus:border-receipt-highlight;
+  }
+
+  .label {
+    @apply block text-sm font-medium text-ink-500 mb-1;
+  }
+
+  .page-title {
+    @apply font-display text-3xl text-ink-800 tracking-tight;
+  }
+
+  .section-title {
+    @apply font-display text-xl text-ink-700;
+  }
+}
+
+@layer utilities {
+  .receipt-dashed-border {
+    background-image: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 6px,
+      #E8E1D0 6px,
+      #E8E1D0 12px
+    );
+    background-size: 1px 12px;
+    background-repeat: repeat-y;
+  }
+}
