@@ -24,6 +24,17 @@ export async function parse(
   try {
     const userId = req.userId!;
 
+    // Rate limit: max 10 receipts per user per day
+    const DAILY_LIMIT = 10;
+    const todayCount = receiptService.countTodayByUser(userId);
+    if (todayCount >= DAILY_LIMIT) {
+      throw new AppError(
+        "RATE_LIMIT",
+        `Daily upload limit reached (${DAILY_LIMIT} receipts per day). Try again tomorrow!`,
+        429
+      );
+    }
+
     if (!req.file) {
       throw new AppError("NO_FILE", "No image file uploaded", 400);
     }

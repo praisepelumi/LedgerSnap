@@ -222,6 +222,26 @@ export async function getRecentForDuplicateCheck(userId: number, limit = 50) {
     .all();
 }
 
+// ── Count today's uploads for rate limiting ─────────────────────────────────
+
+export function countTodayByUser(userId: number): number {
+  const todayStart = new Date();
+  todayStart.setHours(0, 0, 0, 0);
+
+  const result = db
+    .select({ count: sql<number>`count(*)` })
+    .from(receipts)
+    .where(
+      and(
+        eq(receipts.userId, userId),
+        gte(receipts.createdAt, todayStart.toISOString())
+      )
+    )
+    .get();
+
+  return result?.count ?? 0;
+}
+
 // ── Mappers ───────────────────────────────────────────────────────────────────
 
 function mapReceipt(row: typeof receipts.$inferSelect): Receipt {
